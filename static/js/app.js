@@ -1,6 +1,8 @@
 var filepath = "../../samples.json";
 
-d3.json(filepath).then(function(data) {
+d3.json(filepath).then(updateDashboard)
+
+function updateDashboard(data) {
     // console.log(data.names)
     var names = data.names;
 
@@ -13,6 +15,9 @@ d3.json(filepath).then(function(data) {
     menu.on('change', function (){ 
         var sampleChoice = menu.property("value")
         console.log(sampleChoice)
+
+        var selection =  d3.select("#sample-metadata").selectAll(".demodata");
+        selection.data([]).exit().remove();
 
         var samples = data.samples;
         var meta = data.metadata;
@@ -79,16 +84,16 @@ d3.json(filepath).then(function(data) {
                 var keyValues = metaPoints.map(x=>`${x[0]}: ${x[1]}`)
                 console.log(keyValues)
 
-                // var metaPanel = d3.select("#sample-metadata");
-                // metaPanel.append('ul').classed('list-inserts',true);
-                // var list = metapanel.d3.selectAll('#list-inserts');
-                // list.data(metaPoints).enter().append('li');
-                d3.select("#sample-metadata").selectAll("div").exit().remove()
-                d3.select("#sample-metadata").selectAll("div").data(keyValues).enter().append("ul")
+         
+                var selection2 =  d3.select("#sample-metadata").selectAll(".demodata");
+                selection2.data(keyValues).enter().append("div").classed("demodata",true)
                 .html(function(d) {
                     return `<p>${d}</p>`
                 })
-    
+                ;
+
+                
+                
             }
             })
 
@@ -96,4 +101,4 @@ d3.json(filepath).then(function(data) {
     
 
   });
-})
+}
