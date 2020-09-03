@@ -1,5 +1,6 @@
 // set filepath for data
-var filepath = "../../samples.json";
+// var filepath = "../../samples.json";
+var filepath = "samples.json";
 
 // import data and trigger main update function
 d3.json(filepath).then(updateDashboard);
